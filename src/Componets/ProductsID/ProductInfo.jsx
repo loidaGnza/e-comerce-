@@ -3,8 +3,11 @@ import { useDispatch } from "react-redux";
 import { addProductCart } from "../../store/Slices/cart.slice";
 import "./styles/ProductInfo.css";
 
+const positionImg = ["first", "second", "third"];
+
 const ProductInfo = ({ product }) => {
   const [quantity, setQuantity] = useState(1);
+  const [currentImage, setCurrentImage] = useState(0);
 
   const dispatch = useDispatch();
 
@@ -27,10 +30,54 @@ const ProductInfo = ({ product }) => {
     dispatch(addProductCart(data));
   };
 
+  const handleClickLeft = () => {
+    const newValue = currentImage - 1;
+    if (newValue >= 0) {
+      setCurrentImage(newValue);
+    } else {
+      setCurrentImage(positionImg.length - 1);
+    }
+  };
+
+  const handleClickRigth = () => {
+    const newValue = currentImage + 1;
+    if (newValue <= 2) {
+      setCurrentImage(newValue);
+    } else {
+      setCurrentImage(0);
+    }
+  };
+
   return (
     <article className="productInfo">
-      <div className="productInfo__img">
-        <img src={product?.productImgs[0]} alt="" />
+      <div className="productInfo__slider">
+        <div
+          className={`productInfo__slider-container ${positionImg[currentImage]} `}
+        >
+          <img
+            className="productInfo__slider-img"
+            src={product?.productImgs[0]}
+            alt=""
+          />
+          <img
+            className="productInfo__slider-img"
+            src={product?.productImgs[1]}
+            alt=""
+          />
+          <img
+            className="productInfo__slider-img"
+            src={product?.productImgs[2]}
+            alt=""
+          />
+        </div>
+        <i
+          onClick={handleClickLeft}
+          className="productInfo__slider-arrowLeft bx bxs-chevron-left-circle"
+        ></i>
+        <i
+          onClick={handleClickRigth}
+          className="productInfo__slider-arrowRight bx bxs-chevron-right-circle"
+        ></i>
       </div>
       <div className="productInfo__info">
         <h2 className="productInfo__title">{product?.title}</h2>
