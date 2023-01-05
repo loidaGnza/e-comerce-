@@ -1,7 +1,7 @@
 import React from "react";
 import { changeDateFormat } from "../../utils/date";
 import ProductPurchases from "./ProductPurchase";
-import "./styles/purchaseCard.css";
+import "./styles/PurchaseCard.css";
 
 const PurchaseCard = ({ purchase }) => {
   return (
